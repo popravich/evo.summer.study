@@ -1,0 +1,43 @@
+commands:
+  docs: !Command
+    container: sphinx
+    work-dir: tutorial
+    run:
+    - make
+    - html
+
+  sphinx: !Command
+    container: sphinx
+    run:
+    - sphinx-quickstart
+
+  jupyter: !Command
+    container: ipython
+    work-dir: notebooks
+    run:
+    - jupyter
+    - notebook
+    - --no-browser
+    - --ip
+    - 0.0.0.0
+    - --port
+    - 8080
+
+containers:
+  sphinx:
+    setup:
+    - !Ubuntu xenial
+    - !PipConfig { dependencies: true }
+    - !Py3Install
+      - sphinx
+  ipython:
+    auto-clean: true
+    setup:
+    - !Ubuntu xenial
+    - !PipConfig { dependencies: true }
+    - !Py3Install
+      - ipython
+      - jupyter
+      - flask
+    volumes:
+      /root: !Persistent { name: jupyter }

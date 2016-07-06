@@ -34,10 +34,15 @@ containers:
     auto-clean: true
     setup:
     - !Ubuntu xenial
+    - !UbuntuUniverse
+    - !Install [sqlite]
     - !PipConfig { dependencies: true }
     - !Py3Install
       - ipython
       - jupyter
-      - flask
+    - !Py3Requirements examples/sample01/requirements.txt
+    - !Py3Requirements examples/sample02/requirements.txt
     volumes:
       /root: !Persistent { name: jupyter }
+    environ:
+      PYTHONPATH: /work/examples:/work/notebooks

@@ -1,15 +1,16 @@
+_defaults:
+  sampleXX: &sample
+    container: ipython
+    work-dir: examples
+
+
 commands:
-  docs: !Command
+  doc: !Command
     container: sphinx
-    work-dir: tutorial
+    work-dir: docs
     run:
     - make
     - html
-
-  sphinx: !Command
-    container: sphinx
-    run:
-    - sphinx-quickstart
 
   jupyter: !Command
     container: ipython
@@ -23,10 +24,19 @@ commands:
     - --port
     - 8080
 
+  sample01: !Command
+    <<: *sample
+    run: [python3, -m, sample01]
+  sample02: !Command
+    <<: *sample
+    run: [python3, -m, sample02]
+
 containers:
   sphinx:
     setup:
     - !Ubuntu xenial
+    - !Install
+      - make
     - !PipConfig { dependencies: true }
     - !Py3Install
       - sphinx

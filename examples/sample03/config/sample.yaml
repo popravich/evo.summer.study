@@ -1,0 +1,3 @@
+# Sample configuration file
+flask:
+  SERVER_NAME: example.com:5000

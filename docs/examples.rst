@@ -6,3 +6,5 @@ Flask Examples
    :maxdepth: 2
    
    sample01
+   sample02
+   sample03

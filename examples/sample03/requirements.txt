@@ -1,4 +1,5 @@
 flask
+flask_sqlalchemy
 
 PyYAML
 # For config validation
